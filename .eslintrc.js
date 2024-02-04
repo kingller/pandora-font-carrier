@@ -8,4 +8,7 @@ module.exports = {
             version: '16.0',
         },
     },
+    rules: {
+        'no-console': 0,
+    },
 };

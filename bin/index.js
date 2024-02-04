@@ -1,11 +1,19 @@
-#!/usr/bin/env node
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
-const fs_1 = __importDefault(require("fs"));
+const promises_1 = require("node:fs/promises");
 const font_carrier_1 = __importDefault(require("font-carrier"));
 function getIconCss({ fontFamily, classPrefix, icons, }) {
     const prefix = classPrefix || 'icon-';
@@ -39,33 +47,37 @@ ${icons
     })
         .join('\n')}`;
 }
-function iconBuild({ fontFamily: family, classPrefix, iconPath, codeStart, output: outputPath, outputFileName, }) {
-    const fontFamily = family || 'icomoon';
-    const font = font_carrier_1.default.create();
-    const svgList = fs_1.default.readdirSync(iconPath);
-    const icons = [];
-    let num = typeof codeStart === 'number' ? codeStart : 1;
-    svgList.forEach(function (fileName) {
-        if (/\.svg$/.test(fileName)) {
-            const code = num.toString(16).padStart(3, '0');
-            font.setSvg(`&#xe${code};`, fs_1.default.readFileSync(path_1.default.resolve(iconPath, fileName)).toString());
-            icons.push({
-                name: fileName.replace('.svg', ''),
-                code,
-            });
-            num++;
+function iconFontGenerate({ iconPath, fontFamily: family, classPrefix, codeStart, output: outputPath, outputFileName, }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const fontFamily = family || 'icomoon';
+        const font = font_carrier_1.default.create();
+        const svgList = yield (0, promises_1.readdir)(iconPath);
+        const icons = [];
+        let num = typeof codeStart === 'number' ? codeStart : 1;
+        for (const fileName of svgList) {
+            if (/\.svg$/.test(fileName)) {
+                const code = num.toString(16).padStart(3, '0');
+                // eslint-disable-next-line no-await-in-loop
+                font.setSvg(`&#xe${code};`, yield (0, promises_1.readFile)(path_1.default.resolve(iconPath, fileName)).toString());
+                icons.push({
+                    name: fileName.replace('.svg', ''),
+                    code,
+                });
+                num++;
+            }
         }
+        font.output({
+            path: `${path_1.default.resolve(outputPath, 'fonts')}/${fontFamily}`,
+            types: ['woff'],
+        });
+        const iconCssStr = getIconCss({
+            fontFamily,
+            classPrefix,
+            icons,
+        });
+        const fileName = outputFileName || 'iconfont.css';
+        yield (0, promises_1.writeFile)(path_1.default.resolve(outputPath, fileName), iconCssStr, { encoding: 'utf8' });
+        console.log(`字体图标 ${fontFamily} 生成完成!`);
     });
-    font.output({
-        path: `${path_1.default.resolve(outputPath, 'fonts')}/${fontFamily}`,
-        types: ['woff'],
-    });
-    const iconCssStr = getIconCss({
-        fontFamily,
-        classPrefix,
-        icons,
-    });
-    const fileName = outputFileName || 'iconfont.css';
-    fs_1.default.writeFileSync(path_1.default.resolve(outputPath, fileName), iconCssStr, { encoding: 'utf8' });
-    console.log(`字体图标 ${fontFamily} 生成完成!`);
 }
+exports.default = iconFontGenerate;

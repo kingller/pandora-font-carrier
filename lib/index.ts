@@ -1,7 +1,5 @@
-#!/usr/bin/env node
-
 import path from 'path';
-import fs from 'fs';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import fontCarrier from 'font-carrier';
 
 function getIconCss({
@@ -45,43 +43,46 @@ ${icons
     .join('\n')}`;
 }
 
-function iconBuild({
-    fontFamily: family,
-    classPrefix,
-    iconPath,
-    codeStart,
-    output: outputPath,
-    outputFileName,
-}: {
+export interface IOptions {
+    /** 图标文件夹路径 */
+    iconPath: string;
     /** 字体图标名称 */
     fontFamily?: string;
     /** 字体图标类名前缀 */
     classPrefix?: string;
-    /** 图标文件夹路径 */
-    iconPath: string;
     /** 字体图标编码起始值 */
     codeStart?: number;
     /** 输出路径 */
     output: string;
     /** 输出字体图标文件名 */
     outputFileName?: string;
-}) {
+}
+
+async function iconFontGenerate({
+    iconPath,
+    fontFamily: family,
+    classPrefix,
+    codeStart,
+    output: outputPath,
+    outputFileName,
+}: IOptions) {
     const fontFamily = family || 'icomoon';
     const font = fontCarrier.create();
-    const svgList = fs.readdirSync(iconPath);
+    const svgList = await readdir(iconPath);
     const icons: { name: string; code: string }[] = [];
     let num = typeof codeStart === 'number' ? codeStart : 1;
-    svgList.forEach(function (fileName) {
+    for (const fileName of svgList) {
         if (/\.svg$/.test(fileName)) {
             const code = num.toString(16).padStart(3, '0');
-            font.setSvg(`&#xe${code};`, fs.readFileSync(path.resolve(iconPath, fileName)).toString());
+            // eslint-disable-next-line no-await-in-loop
+            font.setSvg(`&#xe${code};`, await readFile(path.resolve(iconPath, fileName)).toString());
             icons.push({
                 name: fileName.replace('.svg', ''),
                 code,
             });
             num++;
         }
-    });
+    }
     font.output({
         path: `${path.resolve(outputPath, 'fonts')}/${fontFamily}`,
         types: ['woff'],
@@ -92,8 +93,9 @@ function iconBuild({
         icons,
     });
     const fileName = outputFileName || 'iconfont.css';
-    fs.writeFileSync(path.resolve(outputPath, fileName), iconCssStr, { encoding: 'utf8' });
+    await writeFile(path.resolve(outputPath, fileName), iconCssStr, { encoding: 'utf8' });
 
-    // eslint-disable-next-line no-console
     console.log(`字体图标 ${fontFamily} 生成完成!`);
 }
+
+export default iconFontGenerate;
