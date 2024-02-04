@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "outDir": "bin",
+        "target": "es2015",
+        "module": "commonjs",
+        "sourceMap": false,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "removeComments": true,
+        "lib": ["es2015"]
+    },
+    "include": ["lib/**/*"],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "strict": true
+}

@@ -1,2 +1,2 @@
-# pandora-font-carrier
+# pandora-icon-font
 Convert svg to font

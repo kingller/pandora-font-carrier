@@ -1,0 +1,69 @@
+{
+    "name": "pandora-icon-font",
+    "version": "0.0.0",
+    "description": "Convert svg to font",
+    "keywords": [
+        "carrier",
+        "font",
+        "generator",
+        "icon",
+        "node",
+        "pandora",
+        "svg"
+    ],
+    "homepage": "https://github.com/kingller/pandora-icon-font",
+    "bugs": {
+        "url": "https://github.com/kingller/pandora-icon-font/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kingller/pandora-icon-font.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Kingller Tang",
+        "url": "https://github.com/kingller"
+    },
+    "files": [
+        "bin/*"
+    ],
+    "main": "./bin/index.js",
+    "types": "./bin/index.d.ts",
+    "bin": {
+        "iconfont": "./bin/index.js"
+    },
+    "scripts": {
+        "build": "npm run clean && tsc --build tsconfig.json",
+        "clean": "rimraf ./bin",
+        "eslint": "eslint --ext .tsx,.ts --fix ./lib/**",
+        "prepublishOnly": "npm run build"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "lib/**/*.{ts,tsx}": [
+            "npm run eslint",
+            "prettier .prettierrc.js --write"
+        ]
+    },
+    "dependencies": {
+        "font-carrier": "0.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.16",
+        "eslint-config-pandora-typescript": "^2.5.1",
+        "husky": "^4.2.5",
+        "lint-staged": "^10.2.11",
+        "prettier": "^3.0.3",
+        "typescript": "^4.6.4"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    }
+}
