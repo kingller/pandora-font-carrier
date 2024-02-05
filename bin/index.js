@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const promises_1 = require("node:fs/promises");
 const font_carrier_1 = __importDefault(require("font-carrier"));
+const chalk_1 = __importDefault(require("chalk"));
 function getIconCss({ fontFamily, classPrefix, icons, }) {
     const prefix = classPrefix || 'icon-';
     return `@font-face {
@@ -58,7 +59,8 @@ function iconFontGenerate({ iconPath, fontFamily: family, classPrefix, codeStart
             if (/\.svg$/.test(fileName)) {
                 const code = num.toString(16).padStart(3, '0');
                 // eslint-disable-next-line no-await-in-loop
-                font.setSvg(`&#xe${code};`, yield (0, promises_1.readFile)(path_1.default.resolve(iconPath, fileName)).toString());
+                const svg = yield (0, promises_1.readFile)(path_1.default.resolve(iconPath, fileName), { encoding: 'utf8' });
+                font.setSvg(`&#xe${code};`, svg);
                 icons.push({
                     name: fileName.replace('.svg', ''),
                     code,
@@ -77,7 +79,7 @@ function iconFontGenerate({ iconPath, fontFamily: family, classPrefix, codeStart
         });
         const fileName = outputFileName || 'iconfont.css';
         yield (0, promises_1.writeFile)(path_1.default.resolve(outputPath, fileName), iconCssStr, { encoding: 'utf8' });
-        console.log(`字体图标 ${fontFamily} 生成完成!`);
+        console.log(chalk_1.default.green(`字体图标 ${fontFamily} 生成完成!`));
     });
 }
 exports.default = iconFontGenerate;

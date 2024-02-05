@@ -10,5 +10,11 @@ module.exports = {
     },
     rules: {
         'no-console': 0,
+        'import/no-import-module-exports': [
+            'error',
+            {
+                exceptions: ['**/*/cjs.ts'],
+            },
+        ],
     },
 };

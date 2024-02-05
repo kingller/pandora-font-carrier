@@ -6,18 +6,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const yargs_1 = __importDefault(require("yargs"));
 const path_1 = __importDefault(require("path"));
+const chalk_1 = __importDefault(require("chalk"));
 const index_1 = __importDefault(require("./index"));
 const argv = yargs_1.default
-    .alias('i', 'iconPath')
-    .describe('i', 'Svg directory')
-    .alias('o', 'output')
-    .describe('o', 'Output directory')
-    .alias('pref', 'classPrefix')
-    .describe('pref', 'Font icon class name prefix')
-    .alias('s', 'codeStart')
-    .describe('s', 'Font icon encoding starting value')
-    .alias('f', 'outputFileName')
-    .describe('f', 'Output font icon file name')
+    .option('iconPath', {
+    alias: 'i',
+    type: 'string',
+    description: 'Svg directory, generates fonts',
+})
+    .option('output', {
+    alias: 'o',
+    type: 'string',
+    description: 'Output directory',
+})
+    .option('fontFamily', {
+    type: 'string',
+    description: 'Font family',
+})
+    .option('classPrefix', {
+    type: 'string',
+    description: 'Font icon class name prefix',
+})
+    .option('codeStart', {
+    alias: 's',
+    type: 'number',
+    description: 'Font icon encoding starting value',
+})
+    .option('outputFileName', {
+    type: 'string',
+    description: 'Output font icon file name',
+})
     .demandOption(['iconPath', 'output'])
     .help('h')
     .alias('h', 'help').argv;
@@ -31,5 +49,5 @@ const outputPath = path_1.default.resolve(process.cwd(), argv.output);
     output: outputPath,
     outputFileName: argv.outputFileName,
 }).catch((err) => {
-    console.error('生成字体图标出错：', err);
+    console.error(chalk_1.default.red('生成字体图标出错：', err));
 });

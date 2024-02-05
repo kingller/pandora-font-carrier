@@ -1,6 +1,7 @@
 import path from 'path';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import fontCarrier from 'font-carrier';
+import chalk from 'chalk';
 
 function getIconCss({
     fontFamily,
@@ -75,7 +76,8 @@ async function iconFontGenerate({
         if (/\.svg$/.test(fileName)) {
             const code = num.toString(16).padStart(3, '0');
             // eslint-disable-next-line no-await-in-loop
-            font.setSvg(`&#xe${code};`, await readFile(path.resolve(iconPath, fileName)).toString());
+            const svg = await readFile(path.resolve(iconPath, fileName), { encoding: 'utf8' });
+            font.setSvg(`&#xe${code};`, svg);
             icons.push({
                 name: fileName.replace('.svg', ''),
                 code,
@@ -95,7 +97,7 @@ async function iconFontGenerate({
     const fileName = outputFileName || 'iconfont.css';
     await writeFile(path.resolve(outputPath, fileName), iconCssStr, { encoding: 'utf8' });
 
-    console.log(`字体图标 ${fontFamily} 生成完成!`);
+    console.log(chalk.green(`字体图标 ${fontFamily} 生成完成!`));
 }
 
 export default iconFontGenerate;
