@@ -5,7 +5,7 @@ specifiers:
   '@types/yargs': ^17.0.32
   chalk: ^5.3.0
   eslint-config-pandora-typescript: ^2.5.1
-  font-carrier: ~0.3.1
+  font-carrier: 0.3.1
   husky: ^4.2.5
   lint-staged: ^10.2.11
   prettier: ^3.0.3
