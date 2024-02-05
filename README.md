@@ -96,4 +96,4 @@ Output font icon file name.
 
 ## result
 
-![View result](https://kingller.github.io/static/icon-font/icon-font-output.pngg)
+![View result](https://kingller.github.io/static/icon-font/icon-font-output.png)
