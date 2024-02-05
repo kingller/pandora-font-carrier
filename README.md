@@ -11,49 +11,6 @@ npm i pandora-icon-font
 
 ```
 {
-  "name": "pandora",
-  "version": "28.19.0",
-  "description": "PC 端组件库",
-  "keywords": [
-    "hrone",
-    "pandora",
-    "react",
-    "style"
-  ],
-  "homepage": "http://git.gaiaworks.cn:8088/fe/pandora",
-  "bugs": {
-    "url": "http://git.gaiaworks.cn:8088/fe/pandora/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@git.gaiaworks.cn:fe/pandora.git"
-  },
-  "author": "gaia design ui team",
-  "files": [
-    "dest/",
-    "src/",
-    "lib/",
-    "postinstall/",
-    "package.json",
-    "tsconfig.json",
-    ".eslintrc.js",
-    ".prettierrc.js",
-    "README.md",
-    "CHANGELOG.md",
-    "CONTRIBUTING.md",
-    "babel.config.js",
-    "chunk.config.js",
-    "gulpfile.js",
-    "externals.config.js",
-    "webpack.alias.js",
-    "webpack.base.config.js",
-    "webpack.example.config.js",
-    "webpack.externals.js",
-    "webpack.lib.config.js",
-    "webpack.template.config.js"
-  ],
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
   "scripts": {
     "iconfont": "iconfont --iconPath ./src/css/core/svg --output ./src/css/core",
   },
