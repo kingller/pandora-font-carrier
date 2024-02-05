@@ -92,3 +92,8 @@ default: `iconfont.css`.
 Output font icon file name.
 
 输出字体图标文件名。
+
+
+## 输出结果
+
+[输出](https://ipfs.io/ipfs/QmZ53F5nFVfD6YueZCm1yraPp1HZc1gMWnLDx53otq3PiZ?filename=icon-font-output.png)
