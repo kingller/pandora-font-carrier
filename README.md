@@ -96,4 +96,4 @@ Output font icon file name.
 
 ## 输出结果
 
-![output](https://ipfs.io/ipfs/QmZ53F5nFVfD6YueZCm1yraPp1HZc1gMWnLDx53otq3PiZ?filename=icon-font-output.png)
+![icon-font-output.png](https://ipfs.io/ipfs/QmZ53F5nFVfD6YueZCm1yraPp1HZc1gMWnLDx53otq3PiZ?filename=icon-font-output.png)
