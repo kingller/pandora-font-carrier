@@ -94,6 +94,6 @@ Output font icon file name.
 输出字体图标文件名。
 
 
-## result
+## Result
 
 ![View result](https://kingller.github.io/static/icon-font/icon-font-output.png)
