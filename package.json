@@ -1,6 +1,6 @@
 {
     "name": "pandora-icon-font",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Convert svg to font",
     "keywords": [
         "carrier",
@@ -50,7 +50,7 @@
         ]
     },
     "dependencies": {
-        "chalk": "^5.3.0",
+        "chalk": "^4.1.2",
         "font-carrier": "0.3.1",
         "yargs": "^17.7.2"
     },

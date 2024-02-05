@@ -96,4 +96,4 @@ Output font icon file name.
 
 ## result
 
-[View result](https://ipfs.io/ipfs/QmZ53F5nFVfD6YueZCm1yraPp1HZc1gMWnLDx53otq3PiZ?filename=icon-font-output.png)
+![View result](https://kingller.github.io/static/icon-font/icon-font-output.pngg)
