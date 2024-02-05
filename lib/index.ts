@@ -1,5 +1,6 @@
 import path from 'path';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
+// @ts-ignore
 import fontCarrier from 'font-carrier';
 import chalk from 'chalk';
 
