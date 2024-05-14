@@ -9,6 +9,10 @@
 # Next
 
 
+# 0.0.3
+1. <font color=red>修复</font> 输出路径不存在时，创建路径，防止报错 `Error: ENOENT: no such file or directory`
+
+
 # 0.0.2
 1. <font color=red>修复</font> 执行时 `chalk` 报错，改为使用 `4.x.x`
 ```

@@ -1,5 +1,5 @@
 import path from 'path';
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 // @ts-ignore
 import fontCarrier from 'font-carrier';
 import chalk from 'chalk';
@@ -86,8 +86,10 @@ async function iconFontGenerate({
             num++;
         }
     }
+    const fontPath = path.resolve(outputPath, 'fonts');
+    await mkdir(fontPath, { recursive: true });
     font.output({
-        path: `${path.resolve(outputPath, 'fonts')}/${fontFamily}`,
+        path: `${fontPath}/${fontFamily}`,
         types: ['woff'],
     });
     const iconCssStr = getIconCss({

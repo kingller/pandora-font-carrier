@@ -69,8 +69,10 @@ function iconFontGenerate({ iconPath, fontFamily: family, classPrefix, codeStart
                 num++;
             }
         }
+        const fontPath = path_1.default.resolve(outputPath, 'fonts');
+        yield (0, promises_1.mkdir)(fontPath, { recursive: true });
         font.output({
-            path: `${path_1.default.resolve(outputPath, 'fonts')}/${fontFamily}`,
+            path: `${fontPath}/${fontFamily}`,
             types: ['woff'],
         });
         const iconCssStr = getIconCss({
